@@ -9,6 +9,7 @@
 #include "keyboard.h"
 #include "jumps.h"
 #include "graphics.h"
+#include "respawns.h"
 #include <vector>
 
 void disableOriginalStunts()
@@ -159,7 +160,11 @@ void main()
 {
 	disableOriginalStunts();
 	addMovedStunts();
-	
+
+	while (true) {
+		handleCharacterRespawn();
+		WAIT(0);
+	}
 	/*initializeJumps();
 
 	while (true)
