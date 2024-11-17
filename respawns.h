@@ -326,9 +326,10 @@ void SetCarAsPersonal(Vehicle vehicleId, int character) {
 void CreatePersonalVehicleOnCoords(int character, int vehicleType, Vector3 coords, float heading) {
 
 	// Global_SaveData.COMPONENTS_ARRAY.PP_INFO_STRUCT.STORED_CAR_DATA[vehicleType /*223*/][character /*74*/]
+	// vehicleType here is 0 for car, 1 for bike, unlike in the default vehicle function, so we subtract one
 	// 1.27: 97353+1729+539+1635 + (1 + vehicleType*223) + (1 + character*74) = 101258 + (vehicleType*223)+(character*74). 
 	// Every script array has its size at the start so add 1 to access the first element.
-	STORED_CAR_DATA* g_SavedVehicle = (STORED_CAR_DATA*)getGlobalPtr(101256 + (1 + vehicleType * 223) + (1 + character * 74));
+	STORED_CAR_DATA* g_SavedVehicle = (STORED_CAR_DATA*)getGlobalPtr(101256 + (1 + (vehicleType-1) * 223) + (1 + character * 74));
 
 	STORED_CAR_DATA defaultVehicle = GetDefaultCharacterVehicle(character, vehicleType);
 	if (defaultVehicle.model != g_SavedVehicle->model) { // No saved car
